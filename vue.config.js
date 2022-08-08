@@ -1,4 +1,5 @@
 const { defineConfig } = require('@vue/cli-service');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -11,5 +12,12 @@ module.exports = defineConfig({
         `,
       },
     },
+  },
+  configureWebpack: {
+    plugins: [
+      new StyleLintPlugin({
+        files: ['src/**/*.{vue,scss}'],
+      }),
+    ],
   },
 });
