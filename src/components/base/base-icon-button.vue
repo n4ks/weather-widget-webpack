@@ -32,3 +32,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+.base-icon-btn {
+  background-color: transparent;
+  border: none;
+}
+</style>

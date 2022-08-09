@@ -53,8 +53,10 @@ export default Vue.extend({
     width: 60px;
     height: 60px;
     color: $color-1;
-    background-color: transparent;
-    border: none;
+
+    &:hover {
+      color: color.adjust(#000000, $lightness: 50%);
+    }
   }
 }
 </style>
