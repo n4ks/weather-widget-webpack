@@ -1,15 +1,22 @@
 ﻿<template>
-  <div class="weather-widget"></div>
+  <div class="weather-widget">
+    <span>{{ weather.city }}, {{ weather.country }}</span>
+    <base-icon-button
+      class="weather-widget__icon-btn"
+      icon-folder="base"
+      icon-name="config"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-// import WeatherWidgetIcon from '@/components/weather-widget-icon.vue';
+import BaseIconButton from '@/components/base/base-icon-button.vue';
 
 export default Vue.extend({
-  // components: {
-  //   WeatherWidgetIcon,
-  // },
+  components: {
+    BaseIconButton,
+  },
   data() {
     return {
       weather: {
@@ -28,12 +35,26 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/main';
+@import '@/assets/scss/main.scss';
 
 .weather-widget {
+  width: 200px;
+  height: 300px;
+  padding: 10px;
   font-family: $primary-font;
   font-size: 16px;
   font-weight: 400;
   color: $color-1;
+  background-color: $color-2;
+  border: 1px solid $color-1;
+  border-radius: 8px;
+
+  &__icon-btn {
+    width: 60px;
+    height: 60px;
+    color: $color-1;
+    background-color: transparent;
+    border: none;
+  }
 }
 </style>

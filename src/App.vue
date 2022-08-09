@@ -1,5 +1,5 @@
 <template>
-  <weather-widget></weather-widget>
+  <weather-widget />
 </template>
 
 <script lang="ts">

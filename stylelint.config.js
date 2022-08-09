@@ -8,9 +8,11 @@
   ],
   overrides: [
     {
-      files: ['*.vue', '**/*.vue', '**/*.scss'],
+      files: ['*.vue', '**/*.vue', '*.scss', '**/*.scss'],
       rules: {
-        'unit-allowed-list': ['px'],
+        'unit-allowed-list': ['px', '%'],
+        'color-hex-case': 'upper',
+        'scss/at-import-partial-extension': 'always',
       },
     },
   ],
