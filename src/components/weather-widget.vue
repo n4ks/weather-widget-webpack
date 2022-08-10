@@ -1,11 +1,15 @@
 ﻿<template>
   <div class="weather-widget">
-    <span>{{ weather.city }}, {{ weather.country }}</span>
-    <base-icon-button
-      class="weather-widget__icon-btn"
-      icon-folder="base"
-      icon-name="config"
-    />
+    <div class="weather-widget__row">
+      <span>{{ weather.city }}, {{ weather.country }}</span>
+      <base-icon-button
+        class="weather-widget__icon-btn"
+        icon-folder="base"
+        icon-name="config"
+        size="sm"
+        color="brand"
+      />
+    </div>
   </div>
 </template>
 
@@ -38,25 +42,21 @@ export default Vue.extend({
 @import '@/assets/scss/main.scss';
 
 .weather-widget {
+  box-sizing: border-box;
   width: 200px;
   height: 300px;
-  padding: 10px;
+  padding: 10px 15px;
   font-family: $primary-font;
   font-size: 16px;
   font-weight: 400;
-  color: $color-1;
-  background-color: $color-2;
-  border: 1px solid $color-1;
-  border-radius: 8px;
+  color: $color-default;
+  background-color: $color-default-background;
+  border-radius: 10px;
 
-  &__icon-btn {
-    width: 60px;
-    height: 60px;
-    color: $color-1;
-
-    &:hover {
-      color: color.adjust(#000000, $lightness: 50%);
-    }
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 </style>
