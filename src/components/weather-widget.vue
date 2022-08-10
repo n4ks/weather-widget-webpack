@@ -12,56 +12,35 @@
         color="brand"
       />
     </div>
-    <div class="weather-widget__temperature-row row row--centered">
-      <base-icon
-        class="weather-widget__weather-icon"
-        folder="weather"
-        name="sun"
-        width="48px"
-        height="48px"
-      />
-      <span class="weather-widget__temperature text text--lg text--bold">{{
-        weather.temperature
-      }}</span>
-    </div>
+    <weather-widget-temperature
+      class="weather-widget__temperature"
+      :temperature="weather.temperature"
+    />
     <p class="weather-widget__description text text--sm">
       {{ weather.description }}
     </p>
-    <!--    TODO -> component-->
-    <div class="weather-widget__detailed-data-row row row--spaced row--wrap">
-      <div
-        v-for="(item, index) in weather.detailedData"
+    <div class="weather-widget__additional-info-row row row--spaced row--wrap">
+      <weather-widget-additional-info
+        v-for="(item, index) in weather.additionalInfo"
         :key="index + item.value"
-        class="detailed-data-item text text--sm"
-      >
-        <base-icon
-          v-if="item.icon"
-          class="detailed-data-item__icon"
-          folder="weather"
-          :name="item.icon"
-          width="32px"
-          height="32px"
-        />
-        <span
-          v-if="item.title"
-          class="detailed-data-item__title text--bold"
-          >{{ item.title }}:
-        </span>
-        <span class="detailed-data-item__value">{{ item.value }}</span>
-      </div>
+        class="weather-widget__additional-info-item"
+        :item="item"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import BaseIcon from '@/components/base/base-icon.vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
+import WeatherWidgetTemperature from '@/components/weather-widget-temperature.vue';
+import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-info.vue';
 
 export default Vue.extend({
   components: {
-    BaseIcon,
     BaseIconButton,
+    WeatherWidgetTemperature,
+    WeatherWidgetAdditionalInfo,
   },
   data() {
     return {
@@ -69,9 +48,12 @@ export default Vue.extend({
         city: 'London',
         country: 'UK',
         status: '1',
-        temperature: '7°C',
+        temperature: {
+          value: '7°C',
+          icon: 'sun',
+        },
         description: 'Feels like -3°C. Broken Clouds. Light breeze.',
-        detailedData: [
+        additionalInfo: [
           {
             title: '',
             value: '3.0m/s SSE',
@@ -118,6 +100,7 @@ export default Vue.extend({
   background-color: $color-default-background;
   border-radius: 10px;
 
+  // TODO вероятно не понадобится если вынести в компонент
   &__region-row {
     margin-bottom: 20px;
   }
@@ -126,7 +109,7 @@ export default Vue.extend({
     padding-right: 10px;
   }
 
-  &__temperature-row {
+  &__temperature {
     margin-bottom: 30px;
   }
 
@@ -136,21 +119,12 @@ export default Vue.extend({
     word-wrap: break-word;
   }
 
-  &__detailed-data-row {
-    row-gap: 10px;
-  }
-}
-
-.detailed-data-item {
-  display: flex;
-  align-items: center;
-
-  &__icon {
-    padding-right: 5px;
+  &__additional-info-row {
+    row-gap: 15px;
   }
 
-  &__title {
-    padding-right: 3px;
+  &__additional-info-item {
+    max-width: 48%;
   }
 }
 </style>
