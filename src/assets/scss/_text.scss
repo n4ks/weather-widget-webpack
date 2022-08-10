@@ -1,0 +1,20 @@
+﻿.text {
+  font-size: 16px;
+  font-weight: 400;
+
+  &--sm {
+    font-size: 14px;
+  }
+
+  &--md {
+    font-size: 18px;
+  }
+
+  &--lg {
+    font-size: 28px;
+  }
+
+  &--bold {
+    font-weight: 700;
+  }
+}

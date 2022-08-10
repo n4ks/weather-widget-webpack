@@ -1,5 +1,9 @@
 ﻿<template>
-  <component :is="filePath" />
+  <component
+    :is="filePath"
+    :width="width"
+    :height="height"
+  />
 </template>
 
 <script>
@@ -15,6 +19,14 @@ export default Vue.extend({
     folder: {
       type: String,
       required: true,
+    },
+    width: {
+      type: String,
+      default: '',
+    },
+    height: {
+      type: String,
+      default: '',
     },
   },
   computed: {

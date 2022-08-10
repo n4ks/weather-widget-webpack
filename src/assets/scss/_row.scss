@@ -1,0 +1,16 @@
+﻿.row {
+  display: flex;
+  align-items: center;
+
+  &--spaced {
+    justify-content: space-between;
+  }
+
+  &--centered {
+    justify-content: center;
+  }
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+}
