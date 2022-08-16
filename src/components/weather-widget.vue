@@ -35,6 +35,7 @@ import Vue from 'vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
 import WeatherWidgetTemperature from '@/components/weather-widget-temperature.vue';
 import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-info.vue';
+import { api } from '@/api';
 
 export default Vue.extend({
   components: {
@@ -82,6 +83,27 @@ export default Vue.extend({
         ],
       },
     };
+  },
+  async created() {
+    const cityGeocoding = await this.getGeocoding('test', 'RU');
+    const weather = await this.getWeather(
+      cityGeocoding?.lat,
+      cityGeocoding?.lon,
+    );
+    console.log(cityGeocoding);
+    console.log(weather);
+  },
+  methods: {
+    async getGeocoding(city: string, countryCode: string) {
+      if (!(city && countryCode)) return;
+
+      return await api.getGeocoding(city, countryCode);
+    },
+    async getWeather(lat: string, lon: string) {
+      if (!(lat && lon)) return;
+
+      return await api.getWeather(lat, lon);
+    },
   },
 });
 </script>
