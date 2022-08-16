@@ -13,7 +13,7 @@
       />
     </div>
     <weather-widget-temperature
-      class="weather-widget__temperature"
+      class="weather-widget__temperature row row--centered"
       :temperature="weather.temperature"
     />
     <p class="weather-widget__description text text--sm">

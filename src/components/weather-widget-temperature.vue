@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="temperature row row--centered">
+  <div class="temperature">
     <base-icon
       class="temperature__icon"
       folder="weather"
