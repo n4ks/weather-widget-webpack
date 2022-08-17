@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import BaseIcon from '@/components/base/base-icon.vue';
-import { IWeatherTemperature } from '@/interfaces/IWeatherTemperature';
+import { WeatherInfo } from '@/interfaces/WeatherInfo';
 
 export default Vue.extend({
   name: 'WeatherWidgetTemperature',
@@ -25,7 +25,7 @@ export default Vue.extend({
   },
   props: {
     temperature: {
-      type: Object as PropType<IWeatherTemperature>,
+      type: Object as PropType<WeatherInfo>,
       default: () => ({}),
     },
   },

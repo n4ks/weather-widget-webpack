@@ -1,6 +1,6 @@
-﻿import { getGeocoding } from '@/api/geocoding';
+﻿import { geocoding } from '@/api/geocoding';
 import { getWeather } from '@/api/weather';
 
-const api = { getGeocoding, getWeather };
+const api = { geocoding, getWeather };
 
 export { api };

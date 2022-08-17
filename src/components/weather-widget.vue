@@ -85,21 +85,23 @@ export default Vue.extend({
     };
   },
   async created() {
-    const cityGeocoding = await this.getGeocoding('test', 'RU');
-    const weather = await this.getWeather(
-      cityGeocoding?.lat,
-      cityGeocoding?.lon,
-    );
+    const cityGeocoding = await this.getGeocodingByCityRegion('test', 'RU');
     console.log(cityGeocoding);
-    console.log(weather);
+    // const weather = await this.getWeather(
+    //   cityGeocoding?.lat,
+    //   cityGeocoding?.lon,
+    // );
+    await api.geocoding.getLocationByIP();
   },
   methods: {
-    async getGeocoding(city: string, countryCode: string) {
+    async getGeocodingByCityRegion(city: string, countryCode: string) {
+      // FIXME: add return type
       if (!(city && countryCode)) return;
 
-      return await api.getGeocoding(city, countryCode);
+      return await api.geocoding.getLocationByCityCountry(city, countryCode);
     },
     async getWeather(lat: string, lon: string) {
+      // FIXME: add return type
       if (!(lat && lon)) return;
 
       return await api.getWeather(lat, lon);
