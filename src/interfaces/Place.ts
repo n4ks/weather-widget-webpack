@@ -1,4 +1,4 @@
 ﻿export interface Place {
-  city: number;
-  country: number;
+  city: string;
+  country: string;
 }

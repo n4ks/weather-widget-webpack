@@ -53,7 +53,6 @@ export default Vue.extend({
           city: 'London',
           country: 'UK',
         },
-        status: '1',
         temperature: {
           value: '7°C',
           icon: 'sun',
@@ -90,13 +89,13 @@ export default Vue.extend({
     };
   },
   async created() {
-    const cityGeocoding = await this.getGeocodingByCityRegion('test', 'RU');
-    console.log(cityGeocoding);
+    // const location = await this.getGeocodingByCityRegion('test', 'RU');
+    // console.log(location);
     // const weather = await this.getCurrentWeather(
     //   cityGeocoding?.lat,
     //   cityGeocoding?.lon,
     // );
-    await api.geocoding.getLocationByIP();
+    await this.getWeather();
   },
   methods: {
     async getGeocodingByCityRegion(city: string, countryCode: string) {
@@ -105,11 +104,19 @@ export default Vue.extend({
 
       return await api.geocoding.getLocationByCityCountry(city, countryCode);
     },
-    async getCurrentWeather(lat: string, lon: string) {
+    async getCurrentWeather(lat: number, lon: number) {
       // FIXME: add return type
-      if (!(lat && lon)) return;
-
       return await api.weather.getCurrentWeather(lat, lon);
+    },
+    async getWeather() {
+      const location = await api.geocoding.getLocationByIP();
+      if (location) {
+        console.log('test');
+        const weather = await this.getCurrentWeather(
+          location.lat,
+          location.lon,
+        );
+      }
     },
   },
 });
