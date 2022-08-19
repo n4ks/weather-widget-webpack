@@ -1,6 +1,14 @@
 ﻿import axiosInstance from '@/api/axios';
-import { OpenWeatherGeoLocationDTO } from '@/interfaces/DTO/OpenWeatherGeoLocationDTO';
-import { IPAPIGeoLocationDTO } from '@/interfaces/DTO/IPAPIGeoLocationDTO';
+import { OpenWeatherLocationDTO } from '@/interfaces/DTO/OpenWeatherLocationDTO';
+import { Location } from '@/interfaces/Location';
+import { IPAPILocationDTO } from '@/interfaces/DTO/IPAPILocationDTO';
+import { Nullable } from '@/interfaces/base/Nullable';
+import { ipapiLocationToLocation } from '@/utils/adapter/ipapiLocationToLocation';
+
+interface IPAPILocationResponse {
+  data: IPAPILocationDTO;
+  error?: boolean;
+}
 
 // FIXME: add return type
 
@@ -13,21 +21,30 @@ const geocoding = {
   ) => {
     const endpoint = `/geo/1.0/direct?q=${city}, ${stateCode},${countryCode}&limit=${limit}&appid=${process.env.VUE_APP_WEATHER_API_KEY}`;
     const response = (await axiosInstance.get(endpoint))
-      ?.data as OpenWeatherGeoLocationDTO;
-    // TODO: 400 (global?)
+      ?.data as OpenWeatherLocationDTO;
+
     // TODO: check to adapter
     const result =
       Array.isArray(response) && response.length > 0 ? response[0] : null;
 
     return result;
   },
-  getLocationByIP: async () => {
+  getLocationByIP: async (): Promise<Nullable<Location>> => {
     const endpoint = `${process.env.VUE_APP_IPAPI_URL}/json`;
-    // const response = await axiosInstance.get<ILocationDTOResponse>(endpoint);
-    const response = (await axiosInstance.get(endpoint))
-      ?.data as IPAPIGeoLocationDTO;
+    let response: IPAPILocationResponse;
+    let result: Nullable<Location>;
 
-    console.log(response);
+    try {
+      response = (await axiosInstance.get(endpoint)) as IPAPILocationResponse;
+      result =
+        !response.error && response?.data
+          ? ipapiLocationToLocation(response.data)
+          : null;
+    } catch (e) {
+      console.log(e);
+    }
+
+    return result;
   },
 };
 

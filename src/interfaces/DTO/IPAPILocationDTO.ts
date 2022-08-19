@@ -1,4 +1,4 @@
-export interface IPAPIGeoLocationDTO {
+export interface IPAPILocationDTO {
   latitude: number;
   longitude: number;
 }
