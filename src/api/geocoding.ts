@@ -1,6 +1,6 @@
 ﻿import axiosInstance from '@/api/axios';
-import { OpenWeatherLocationDTO } from '@/interfaces/DTO/OpenWeatherLocationDTO';
-import { IPAPILocationDTO } from '@/interfaces/DTO/IPAPILocationDTO';
+import { OpenWeatherGeoLocationDTO } from '@/interfaces/DTO/OpenWeatherGeoLocationDTO';
+import { IPAPIGeoLocationDTO } from '@/interfaces/DTO/IPAPIGeoLocationDTO';
 
 // FIXME: add return type
 
@@ -13,7 +13,7 @@ const geocoding = {
   ) => {
     const endpoint = `/geo/1.0/direct?q=${city}, ${stateCode},${countryCode}&limit=${limit}&appid=${process.env.VUE_APP_WEATHER_API_KEY}`;
     const response = (await axiosInstance.get(endpoint))
-      ?.data as OpenWeatherLocationDTO;
+      ?.data as OpenWeatherGeoLocationDTO;
     // TODO: 400 (global?)
     // TODO: check to adapter
     const result =
@@ -25,7 +25,7 @@ const geocoding = {
     const endpoint = `${process.env.VUE_APP_IPAPI_URL}/json`;
     // const response = await axiosInstance.get<ILocationDTOResponse>(endpoint);
     const response = (await axiosInstance.get(endpoint))
-      ?.data as IPAPILocationDTO;
+      ?.data as IPAPIGeoLocationDTO;
 
     console.log(response);
   },

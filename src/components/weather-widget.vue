@@ -1,11 +1,12 @@
 ﻿<template>
   <div class="weather-widget text">
-    <div class="weather-widget__region-row row row--spaced">
-      <span class="weather-widget__region text text--md text--bold"
-        >{{ weather.city }}, {{ weather.country }}</span
-      >
+    <div class="weather-widget__place-row row row--spaced">
+      <weather-widget-place
+        class="weather-widget__place text text--md text--bold"
+        :place="weather.place"
+      />
       <base-icon-button
-        class="weather-widget__icon-btn"
+        class="weather-widget__config-btn"
         icon-folder="base"
         icon-name="config"
         size="sm"
@@ -13,7 +14,7 @@
       />
     </div>
     <weather-widget-temperature
-      class="weather-widget__temperature row row--centered"
+      class="weather-widget__temperature-row row row--centered"
       :temperature="weather.temperature"
     />
     <p class="weather-widget__description text text--sm">
@@ -33,12 +34,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
+import WeatherWidgetPlace from '@/components/weather-widget-place.vue';
 import WeatherWidgetTemperature from '@/components/weather-widget-temperature.vue';
 import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-info.vue';
 import { api } from '@/api';
 
 export default Vue.extend({
   components: {
+    WeatherWidgetPlace,
     BaseIconButton,
     WeatherWidgetTemperature,
     WeatherWidgetAdditionalInfo,
@@ -46,8 +49,10 @@ export default Vue.extend({
   data() {
     return {
       weather: {
-        city: 'London',
-        country: 'UK',
+        place: {
+          city: 'London',
+          country: 'UK',
+        },
         status: '1',
         temperature: {
           value: '7°C',
@@ -87,7 +92,7 @@ export default Vue.extend({
   async created() {
     const cityGeocoding = await this.getGeocodingByCityRegion('test', 'RU');
     console.log(cityGeocoding);
-    // const weather = await this.getWeather(
+    // const weather = await this.getCurrentWeather(
     //   cityGeocoding?.lat,
     //   cityGeocoding?.lon,
     // );
@@ -100,11 +105,11 @@ export default Vue.extend({
 
       return await api.geocoding.getLocationByCityCountry(city, countryCode);
     },
-    async getWeather(lat: string, lon: string) {
+    async getCurrentWeather(lat: string, lon: string) {
       // FIXME: add return type
       if (!(lat && lon)) return;
 
-      return await api.getWeather(lat, lon);
+      return await api.weather.getCurrentWeather(lat, lon);
     },
   },
 });
@@ -124,16 +129,19 @@ export default Vue.extend({
   background-color: $color-default-background;
   border-radius: 10px;
 
-  // TODO вероятно не понадобится если вынести в компонент
-  &__region-row {
+  &__place {
+    max-width: 85%;
+  }
+
+  &__config-btn {
+    flex-shrink: 0;
+  }
+
+  &__place-row {
     margin-bottom: 20px;
   }
 
-  &__weather-icon {
-    padding-right: 10px;
-  }
-
-  &__temperature {
+  &__temperature-row {
     margin-bottom: 30px;
   }
 
