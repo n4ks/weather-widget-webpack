@@ -7,16 +7,14 @@
       width="48px"
       height="48px"
     />
-    <span class="temperature__value text text--lg text--bold">{{
-      temperature.value
-    }}</span>
+    <span class="temperature__value">{{ temperature.value }}</span>
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import BaseIcon from '@/components/base/base-icon.vue';
-import { Temperature } from '@/interfaces/Temperature';
+import { Temperature } from '@/interfaces/weather-widget/Temperature';
 
 export default Vue.extend({
   name: 'WeatherWidgetTemperature',

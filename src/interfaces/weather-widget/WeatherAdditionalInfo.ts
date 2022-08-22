@@ -1,5 +1,5 @@
 ﻿export interface WeatherAdditionalInfo {
-  title?: string;
+  title: string;
   value: string;
-  icon?: string;
+  icon: string;
 }

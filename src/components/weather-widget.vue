@@ -14,7 +14,8 @@
       />
     </div>
     <weather-widget-temperature
-      class="weather-widget__temperature-row row row--centered"
+      v-if="weather.temperature.icon"
+      class="weather-widget__temperature-row row row--centered text text--lg text--bold"
       :temperature="weather.temperature"
     />
     <p class="weather-widget__description text text--sm">
@@ -50,38 +51,38 @@ export default Vue.extend({
     return {
       weather: {
         place: {
-          city: 'London',
-          country: 'UK',
+          city: '',
+          country: '',
         },
         temperature: {
-          value: '7°C',
-          icon: 'sun',
+          value: 0,
+          icon: '',
         },
-        description: 'Feels like -3°C. Broken Clouds. Light breeze.',
+        description: '',
         additionalInfo: [
           {
             title: '',
-            value: '3.0m/s SSE',
-            icon: 'wind-velocity',
+            value: '',
+            icon: '',
           },
           {
             title: '',
-            value: '1021hPa',
-            icon: 'pressure',
-          },
-          {
-            title: 'Humidity',
-            value: '97%',
+            value: '',
             icon: '',
           },
           {
-            title: 'Dew point',
-            value: '0°C',
+            title: '',
+            value: '',
             icon: '',
           },
           {
-            title: 'Visibility',
-            value: '10.0km',
+            title: '',
+            value: '',
+            icon: '',
+          },
+          {
+            title: '',
+            value: '',
             icon: '',
           },
         ],
@@ -98,25 +99,27 @@ export default Vue.extend({
     await this.getWeather();
   },
   methods: {
-    async getGeocodingByCityRegion(city: string, countryCode: string) {
-      // FIXME: add return type
-      if (!(city && countryCode)) return;
-
-      return await api.geocoding.getLocationByCityCountry(city, countryCode);
-    },
+    // async getGeocodingByCityRegion(city: string, countryCode: string) {
+    //   // FIXME: add return type
+    //   if (!(city && countryCode)) return;
+    //
+    //   return await api.geocoding.getLocationByCityCountry(city, countryCode);
+    // },
     async getCurrentWeather(lat: number, lon: number) {
       // FIXME: add return type
       return await api.weather.getCurrentWeather(lat, lon);
     },
     async getWeather() {
       const location = await api.geocoding.getLocationByIP();
-      if (location) {
-        console.log('test');
-        const weather = await this.getCurrentWeather(
-          location.lat,
-          location.lon,
-        );
-      }
+      if (!location) return;
+
+      const currentWeather = await this.getCurrentWeather(
+        location.lat,
+        location.lon,
+      );
+
+      if (!currentWeather) return;
+      this.weather = currentWeather;
     },
   },
 });
@@ -160,10 +163,6 @@ export default Vue.extend({
 
   &__additional-info-row {
     row-gap: 15px;
-  }
-
-  &__additional-info-item {
-    max-width: 48%;
   }
 }
 </style>

@@ -1,10 +1,9 @@
 ﻿import axiosInstance from '@/api/axios';
 import { OpenWeatherLocationDTO } from '@/interfaces/DTO/OpenWeatherLocationDTO';
-import { Location } from '@/interfaces/Location';
+import { Location } from '@/interfaces/weather-widget/Location';
 import { IPAPILocationDTO } from '@/interfaces/DTO/IPAPILocationDTO';
 import { Nullable } from '@/interfaces/base/Nullable';
-import { ipapiLocationToLocation } from '@/utils/adapter/ipapiLocationToLocation';
-import { isObjectNotEmpty } from '@/utils/isObjectNotEmpty';
+import { ipapiLocationToLocation } from '@/utils/adapters/ipapiLocationToLocation';
 
 interface IPAPILocationResponse {
   data: IPAPILocationDTO;
@@ -38,7 +37,7 @@ const geocoding = {
     try {
       response = (await axiosInstance.get(endpoint)) as IPAPILocationResponse;
       result =
-        !response.error && response?.data && isObjectNotEmpty(response.data)
+        !response.error && response?.data
           ? ipapiLocationToLocation(response.data)
           : null;
     } catch (e) {

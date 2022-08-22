@@ -1,15 +1,32 @@
 ﻿import axiosInstance from '@/api/axios';
-import { isObjectNotEmpty } from '@/utils/isObjectNotEmpty';
+import { OpenWeatherCurrentDTO } from '@/interfaces/DTO/OpenWeatherCurrentDTO';
+import { Nullable } from '@/interfaces/base/Nullable';
+import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
+import { openWeatherCurrentToWeather } from '@/utils/adapters/openWeatherCurrentToWeather';
 
-// FIXME: add return type
+interface OpenWeatherCurrentResponse {
+  data: OpenWeatherCurrentDTO;
+}
+
 const weather = {
-  getCurrentWeather: async (lat: number, lon: number) => {
+  getCurrentWeather: async (
+    lat: number,
+    lon: number,
+  ): Promise<Nullable<CurrentWeather>> => {
     const endpoint = `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.VUE_APP_WEATHER_API_KEY}`;
-    const response = await axiosInstance.get(endpoint);
-    // TODO: 400 (global?)
-    // TODO: check to adapter
-    const result = isObjectNotEmpty(response.data) ? response.data : null;
+    let response: OpenWeatherCurrentResponse;
+    let result: Nullable<CurrentWeather>;
 
+    try {
+      response = (await axiosInstance.get(
+        endpoint,
+      )) as OpenWeatherCurrentResponse;
+      result = response?.data
+        ? openWeatherCurrentToWeather(response.data)
+        : null;
+    } catch (e) {
+      console.log(e);
+    }
     console.log(result);
     return result;
   },

@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import BaseIcon from '@/components/base/base-icon.vue';
-import { WeatherAdditionalInfo } from '@/interfaces/WeatherAdditionalInfo';
+import { WeatherAdditionalInfo } from '@/interfaces/weather-widget/WeatherAdditionalInfo';
 
 export default Vue.extend({
   name: 'WeatherWidgetAdditionalInfo',
