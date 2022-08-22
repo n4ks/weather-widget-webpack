@@ -13,7 +13,7 @@ const weather = {
     lat: number,
     lon: number,
   ): Promise<Nullable<CurrentWeather>> => {
-    const endpoint = `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.VUE_APP_WEATHER_API_KEY}`;
+    const endpoint = `/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.VUE_APP_WEATHER_API_KEY}`;
     let response: OpenWeatherCurrentResponse;
     let result: Nullable<CurrentWeather>;
 

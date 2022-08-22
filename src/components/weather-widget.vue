@@ -65,26 +65,6 @@ export default Vue.extend({
             value: '',
             icon: '',
           },
-          {
-            title: '',
-            value: '',
-            icon: '',
-          },
-          {
-            title: '',
-            value: '',
-            icon: '',
-          },
-          {
-            title: '',
-            value: '',
-            icon: '',
-          },
-          {
-            title: '',
-            value: '',
-            icon: '',
-          },
         ],
       },
     };

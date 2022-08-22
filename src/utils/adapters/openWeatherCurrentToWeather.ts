@@ -18,7 +18,7 @@ export const openWeatherCurrentToWeather = (
     },
     temperature: {
       icon: WeatherIconDictionary[weather[0]?.icon] ?? '',
-      value: main?.temp,
+      value: `${main?.temp.toFixed(1)}°C`,
     },
     description: weather[0]?.description,
     additionalInfo: [
