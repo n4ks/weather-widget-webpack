@@ -41,9 +41,24 @@ const geocoding = {
           ? ipapiLocationToLocation(response.data)
           : null;
     } catch (e) {
+      // TODO throw
       console.log(e);
     }
 
+    return result;
+  },
+  getCitiesByCityName: async (city: string) => {
+    const endpoint = `https://nominatim.openstreetmap.org/search?city=${city}&format=json`;
+    let response;
+    let result;
+
+    try {
+      response = await axiosInstance.get(endpoint);
+      result = response?.data;
+    } catch (e) {
+      console.log(e);
+    }
+    console.log(result);
     return result;
   },
 };

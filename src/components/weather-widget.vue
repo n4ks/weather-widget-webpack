@@ -29,6 +29,7 @@
         :item="item"
       />
     </div>
+    <weather-widget-config-menu />
   </div>
 </template>
 
@@ -38,16 +39,18 @@ import BaseIconButton from '@/components/base/base-icon-button.vue';
 import WeatherWidgetPlace from '@/components/weather-widget-place.vue';
 import WeatherWidgetTemperature from '@/components/weather-widget-temperature.vue';
 import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-info.vue';
+import WeatherWidgetConfigMenu from '@/components/weather-widget-config-menu.vue';
 import { api } from '@/api';
 import { Nullable } from '@/interfaces/base/Nullable';
 import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
 
 export default Vue.extend({
   components: {
-    WeatherWidgetPlace,
     BaseIconButton,
+    WeatherWidgetPlace,
     WeatherWidgetTemperature,
     WeatherWidgetAdditionalInfo,
+    WeatherWidgetConfigMenu,
   },
   data() {
     return {
