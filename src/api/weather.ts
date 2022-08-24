@@ -24,10 +24,11 @@ const weather = {
       result = response?.data
         ? openWeatherCurrentToWeather(response.data)
         : null;
+      console.log(response);
     } catch (e) {
       console.log(e);
     }
-    console.log(result);
+
     return result;
   },
 };

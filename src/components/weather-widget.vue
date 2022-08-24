@@ -39,6 +39,8 @@ import WeatherWidgetPlace from '@/components/weather-widget-place.vue';
 import WeatherWidgetTemperature from '@/components/weather-widget-temperature.vue';
 import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-info.vue';
 import { api } from '@/api';
+import { Nullable } from '@/interfaces/base/Nullable';
+import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
 
 export default Vue.extend({
   components: {
@@ -55,7 +57,7 @@ export default Vue.extend({
           country: '',
         },
         temperature: {
-          value: 0,
+          value: '',
           icon: '',
         },
         description: '',
@@ -70,12 +72,6 @@ export default Vue.extend({
     };
   },
   async created() {
-    // const location = await this.getGeocodingByCityRegion('test', 'RU');
-    // console.log(location);
-    // const weather = await this.getCurrentWeather(
-    //   cityGeocoding?.lat,
-    //   cityGeocoding?.lon,
-    // );
     await this.getWeather();
   },
   methods: {
@@ -85,12 +81,16 @@ export default Vue.extend({
     //
     //   return await api.geocoding.getLocationByCityCountry(city, countryCode);
     // },
-    async getCurrentWeather(lat: number, lon: number) {
+    async getCurrentWeather(
+      lat: number,
+      lon: number,
+    ): Promise<Nullable<CurrentWeather>> {
       // FIXME: add return type
       return await api.weather.getCurrentWeather(lat, lon);
     },
-    async getWeather() {
+    async getWeather(): Promise<void> {
       const location = await api.geocoding.getLocationByIP();
+
       if (!location) return;
 
       const currentWeather = await this.getCurrentWeather(
@@ -99,6 +99,7 @@ export default Vue.extend({
       );
 
       if (!currentWeather) return;
+
       this.weather = currentWeather;
     },
   },

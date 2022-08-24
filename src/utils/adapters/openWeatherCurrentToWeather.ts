@@ -3,6 +3,7 @@ import { Nullable } from '@/interfaces/base/Nullable';
 import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
 import { isObjectEmpty } from '@/utils/base/isObjectEmpty';
 import { WeatherIconDictionary } from '@/utils/dictionaries/WeatherIconDictionary';
+import { getTimeFromUnixTimestamp } from '@/utils/dates/dates';
 
 export const openWeatherCurrentToWeather = (
   currentWeather: OpenWeatherCurrentDTO,
@@ -38,13 +39,18 @@ export const openWeatherCurrentToWeather = (
         icon: '',
       },
       {
-        title: 'Dew point',
-        value: 'todo',
+        title: 'Visibility',
+        value: `${visibility ? visibility / 1000 : ''}km`,
         icon: '',
       },
       {
-        title: 'Visibility',
-        value: `${visibility}km`,
+        title: 'Sunrise',
+        value: `${sys?.sunrise ? getTimeFromUnixTimestamp(sys.sunrise) : ''}`,
+        icon: '',
+      },
+      {
+        title: 'Sunset',
+        value: `${sys?.sunset ? getTimeFromUnixTimestamp(sys.sunset) : ''}`,
         icon: '',
       },
     ],
