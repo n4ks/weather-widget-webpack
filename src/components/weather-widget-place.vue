@@ -11,12 +11,12 @@ export default Vue.extend({
   props: {
     place: {
       type: Object as PropType<Place>,
-      default: () => ({ city: 'unknown', country: 'unknown' } as Place),
+      default: () => ({ city: 'unknown', countryCode: 'unknown' } as Place),
     },
   },
   computed: {
     cityCountry(): string {
-      return `${this.place?.city}, ${this.place?.country}`;
+      return `${this.place?.city}, ${this.place?.countryCode}`;
     },
   },
 });

@@ -1,11 +1,11 @@
 ﻿import { IPAPILocationDTO } from '@/interfaces/DTO/IPAPILocationDTO';
 import { Nullable } from '@/interfaces/base/Nullable';
-import { Location } from '@/interfaces/weather-widget/Location';
+import { Coordinates } from '@/interfaces/weather-widget/Coordinates';
 import { isObjectEmpty } from '@/utils/base/isObjectEmpty';
 
 export const ipapiLocationToLocation = (
   ipapiLocation: IPAPILocationDTO,
-): Nullable<Location> => {
+): Nullable<Coordinates> => {
   if (isObjectEmpty(ipapiLocation)) return null;
 
   const { latitude, longitude } = ipapiLocation;
@@ -13,5 +13,5 @@ export const ipapiLocationToLocation = (
   return {
     lat: latitude,
     lon: longitude,
-  } as Location;
+  } as Coordinates;
 };

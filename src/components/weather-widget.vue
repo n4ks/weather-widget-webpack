@@ -57,7 +57,7 @@ export default Vue.extend({
       weather: {
         place: {
           city: '',
-          country: '',
+          countryCode: '',
         },
         temperature: {
           value: '',
@@ -92,7 +92,7 @@ export default Vue.extend({
       return await api.weather.getCurrentWeather(lat, lon);
     },
     async getWeather(): Promise<void> {
-      const location = await api.geocoding.getLocationByIP();
+      const location = await api.geocoding.getCoordinatesByIP();
 
       if (!location) return;
 

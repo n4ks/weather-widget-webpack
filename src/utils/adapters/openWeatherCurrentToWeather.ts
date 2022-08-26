@@ -15,7 +15,7 @@ export const openWeatherCurrentToWeather = (
   return {
     place: {
       city: name,
-      country: sys?.country,
+      countryCode: sys?.country,
     },
     temperature: {
       icon: WeatherIconDictionary[weather[0]?.icon] ?? '',
