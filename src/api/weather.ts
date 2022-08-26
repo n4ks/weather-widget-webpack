@@ -21,10 +21,7 @@ const weather = {
       response = (await axiosInstance.get(
         endpoint,
       )) as OpenWeatherCurrentResponse;
-      result = response?.data
-        ? openWeatherCurrentToWeather(response.data)
-        : null;
-      console.log(response);
+      result = openWeatherCurrentToWeather(response.data);
     } catch (e) {
       console.log(e);
     }

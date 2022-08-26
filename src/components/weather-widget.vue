@@ -78,12 +78,6 @@ export default Vue.extend({
     await this.getWeather();
   },
   methods: {
-    // async getGeocodingByCityRegion(city: string, countryCode: string) {
-    //   // FIXME: add return type
-    //   if (!(city && countryCode)) return;
-    //
-    //   return await api.geocoding.getLocationByCityCountry(city, countryCode);
-    // },
     async getCurrentWeather(
       lat: number,
       lon: number,

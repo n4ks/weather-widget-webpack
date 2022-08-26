@@ -1,26 +1,38 @@
 ﻿import axiosInstance from '@/api/axios';
+import { IPAPICoordinatesDTO } from '@/interfaces/DTO/IPAPICoordinatesDTO';
+import { OpenStreetCityDTO } from '@/interfaces/DTO/OpenStreetCityDTO';
 import { Coordinates } from '@/interfaces/weather-widget/Coordinates';
-import { IPAPILocationDTO } from '@/interfaces/DTO/IPAPILocationDTO';
 import { Nullable } from '@/interfaces/base/Nullable';
+import { CityInfo } from '@/interfaces/weather-widget/CityInfo';
 import { ipapiLocationToLocation } from '@/utils/adapters/ipapiLocationToLocation';
+import { openStreetCitiesToCitiesInfo } from '@/utils/adapters/openStreetCitiesToCitiesInfo';
 
-interface IPAPILocationResponse {
-  data: IPAPILocationDTO;
+interface IPAPICoordinatesResponse {
+  data: IPAPICoordinatesDTO;
   error?: boolean;
+}
+
+interface OpenStreetCityResponse {
+  data: OpenStreetCityDTO[];
 }
 
 const geocoding = {
   getCoordinatesByIP: async (): Promise<Nullable<Coordinates>> => {
     const endpoint = `${process.env.VUE_APP_IPAPI_URL}/json`;
-    let response: IPAPILocationResponse;
+    let response: IPAPICoordinatesResponse;
     let result: Nullable<Coordinates>;
 
     try {
-      response = (await axiosInstance.get(endpoint)) as IPAPILocationResponse;
-      result =
-        !response.error && response?.data
-          ? ipapiLocationToLocation(response.data)
-          : null;
+      response = (await axiosInstance.get(
+        endpoint,
+      )) as IPAPICoordinatesResponse;
+
+      if (response.error) {
+        // TODO: глянуть в доке как апишка возвращает ошибку с этим ключом и пробросить
+        throw 'error';
+      }
+
+      result = ipapiLocationToLocation(response.data);
     } catch (e) {
       // TODO throw
       console.log(e);
@@ -28,15 +40,16 @@ const geocoding = {
 
     return result;
   },
-  searchCitiesByName: async (city: string) => {
+  searchCitiesByName: async (city: string): Promise<Nullable<CityInfo[]>> => {
     const endpoint = `https://nominatim.openstreetmap.org/search?city=${city}&format=json&addressdetails=1`;
-    let response;
-    let result;
+    let response: OpenStreetCityResponse;
+    let result: Nullable<CityInfo[]>;
 
     try {
-      response = await axiosInstance.get(endpoint);
-      result = response?.data;
+      response = (await axiosInstance.get(endpoint)) as OpenStreetCityResponse;
+      result = openStreetCitiesToCitiesInfo(response.data);
     } catch (e) {
+      // TODO: throw
       console.log(e);
     }
     console.log(result);
