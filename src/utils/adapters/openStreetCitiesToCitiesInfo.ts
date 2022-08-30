@@ -7,16 +7,16 @@ export const openStreetCitiesToCitiesInfo = (
 ): Nullable<CityInfo[]> => {
   if (!openStreetCities?.length) return null;
 
-  const cities = openStreetCities.map((city) => {
-    const { lat, lon, address } = city;
-    const { town, hamlet, village, state, country } = address;
+  const cities = openStreetCities.map((openStreetCity) => {
+    const { lat, lon, address } = openStreetCity;
+    const { town, city, hamlet, village, state, country } = address;
 
     return {
       coordinates: {
         lat: parseFloat(lat),
         lon: parseFloat(lon),
       },
-      address: `${town ?? hamlet ?? village}, ${state}, ${country}`,
+      address: `${town ?? city ?? hamlet ?? village}, ${state}, ${country}`,
     };
   });
 

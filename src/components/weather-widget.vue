@@ -32,6 +32,7 @@
     </div>
     <weather-widget-config-menu
       v-if="isConfigMenuOpen"
+      class="weather-widget__config-menu"
       @close-config-menu="toggleConfigMenu()"
     />
   </div>
@@ -87,7 +88,6 @@ export default Vue.extend({
       lat: number,
       lon: number,
     ): Promise<Nullable<CurrentWeather>> {
-      // FIXME: add return type
       return await api.weather.getCurrentWeather(lat, lon);
     },
     async getWeather(): Promise<void> {
@@ -105,7 +105,6 @@ export default Vue.extend({
       this.weather = currentWeather;
     },
     toggleConfigMenu(): void {
-      console.log('test');
       this.isConfigMenuOpen = !this.isConfigMenuOpen;
     },
   },

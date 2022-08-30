@@ -1,0 +1,12 @@
+﻿@import 'vue-select/dist/vue-select.css';
+
+.vs {
+  &__dropdown-toggle {
+    border-color: $color-brand;
+  }
+
+  &__open-indicator,
+  &__clear {
+    fill: $color-brand;
+  }
+}

@@ -6,9 +6,13 @@
       icon-name="close"
       size="sm"
       color="brand"
-      @click="closeConfigMenu"
+      @click="onCloseConfigMenu"
     />
-    <v-select @search="searchCity" />
+    <v-select
+      label="address"
+      :options="cities"
+      @search="searchCity"
+    />
   </div>
 </template>
 
@@ -17,6 +21,8 @@ import Vue from 'vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
 import vSelect from 'vue-select';
 import { api } from '@/api';
+import { CityInfo } from '@/interfaces/weather-widget/CityInfo';
+import { debounce } from '@/utils/base/debounce';
 
 export default Vue.extend({
   name: 'WeatherWidgetConfigMenu',
@@ -24,7 +30,13 @@ export default Vue.extend({
     BaseIconButton,
     vSelect,
   },
+  data() {
+    return {
+      cities: [] as CityInfo[],
+    };
+  },
   methods: {
+    fetchCitiesByName: debounce(api.geocoding.fetchCitiesByName),
     async searchCity(
       search: string,
       toggleLoading: (loading: boolean) => void,
@@ -32,12 +44,12 @@ export default Vue.extend({
       const isSearchNotEmpty = !search.trim();
 
       if (isSearchNotEmpty) return;
-      // TODO: debounce
+
       toggleLoading(true);
-      await api.geocoding.searchCitiesByName(search);
+      this.cities = (await this.fetchCitiesByName(search)) ?? [];
       toggleLoading(false);
     },
-    closeConfigMenu(): void {
+    onCloseConfigMenu(): void {
       this.$emit('close-config-menu');
     },
   },

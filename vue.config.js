@@ -7,7 +7,6 @@ module.exports = defineConfig({
     loaderOptions: {
       scss: {
         additionalData: `
-        @use 'sass:color';
         @import '@/assets/scss/_fonts.scss';
         @import "@/assets/scss/_variables.scss";
         `,
