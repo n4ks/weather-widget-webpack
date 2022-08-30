@@ -5,7 +5,6 @@
     city?: string;
     village?: string;
     hamlet?: string;
-    state: string;
   };
   lat: string;
   lon: string;
