@@ -3,6 +3,7 @@
     type="button"
     class="base-icon-btn"
     :class="classes"
+    @click="onClick()"
   >
     <span class="visually-hidden">{{ iconName }} button</span>
     <base-icon
@@ -51,6 +52,11 @@ export default Vue.extend({
         `base-icon-btn--size-${this.size}`,
         `base-icon-btn--color-${this.color}`,
       ];
+    },
+  },
+  methods: {
+    onClick(): void {
+      this.$emit('click');
     },
   },
 });

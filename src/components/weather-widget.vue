@@ -11,6 +11,7 @@
         icon-name="config"
         size="sm"
         color="brand"
+        @click="toggleConfigMenu()"
       />
     </div>
     <weather-widget-temperature
@@ -29,7 +30,10 @@
         :item="item"
       />
     </div>
-    <weather-widget-config-menu />
+    <weather-widget-config-menu
+      v-if="isConfigMenuOpen"
+      @close-config-menu="toggleConfigMenu()"
+    />
   </div>
 </template>
 
@@ -54,6 +58,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      isConfigMenuOpen: false,
       weather: {
         place: {
           city: '',
@@ -99,6 +104,10 @@ export default Vue.extend({
 
       this.weather = currentWeather;
     },
+    toggleConfigMenu(): void {
+      console.log('test');
+      this.isConfigMenuOpen = !this.isConfigMenuOpen;
+    },
   },
 });
 </script>
@@ -107,6 +116,7 @@ export default Vue.extend({
 @import '@/assets/scss/main.scss';
 
 .weather-widget {
+  position: relative;
   box-sizing: border-box;
   width: 260px;
   height: 310px;
