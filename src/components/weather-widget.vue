@@ -84,18 +84,18 @@ export default Vue.extend({
     await this.getWeather();
   },
   methods: {
-    async getCurrentWeather(
+    async fetchCurrentWeather(
       lat: number,
       lon: number,
     ): Promise<Nullable<CurrentWeather>> {
-      return await api.weather.getCurrentWeather(lat, lon);
+      return await api.weather.fetchCurrentWeather(lat, lon);
     },
     async getWeather(): Promise<void> {
-      const location = await api.geocoding.getCoordinatesByIP();
+      const location = await api.geocoding.fetchCoordinatesByIP();
 
       if (!location) return;
 
-      const currentWeather = await this.getCurrentWeather(
+      const currentWeather = await this.fetchCurrentWeather(
         location.lat,
         location.lon,
       );

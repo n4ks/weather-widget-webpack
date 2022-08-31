@@ -23,7 +23,7 @@ import BaseIconButton from '@/components/base/base-icon-button.vue';
 import vSelect from 'vue-select';
 import { api } from '@/api';
 import { CityInfo } from '@/interfaces/weather-widget/CityInfo';
-import { debounce } from '@/utils/base/debounce';
+import { utils } from '@/utils/base';
 
 export default Vue.extend({
   name: 'WeatherWidgetConfigMenu',
@@ -37,7 +37,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    fetchCitiesByName: debounce(api.geocoding.fetchCitiesByName),
+    fetchCitiesByName: utils.debounce(api.geocoding.fetchCitiesByName),
     async searchCity(
       search: string,
       toggleLoading: (loading: boolean) => void,

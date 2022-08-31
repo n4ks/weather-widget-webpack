@@ -9,7 +9,7 @@ interface OpenWeatherCurrentResponse {
 }
 
 const weather = {
-  getCurrentWeather: async (
+  fetchCurrentWeather: async (
     lat: number,
     lon: number,
   ): Promise<Nullable<CurrentWeather>> => {
@@ -23,6 +23,7 @@ const weather = {
       )) as OpenWeatherCurrentResponse;
       result = openWeatherCurrentToWeather(response.data);
     } catch (e) {
+      // TODO: throw
       console.log(e);
     }
 

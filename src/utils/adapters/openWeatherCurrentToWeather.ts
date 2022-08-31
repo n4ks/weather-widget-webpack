@@ -1,14 +1,14 @@
 ﻿import { OpenWeatherCurrentDTO } from '@/interfaces/DTO/OpenWeatherCurrentDTO';
 import { Nullable } from '@/interfaces/base/Nullable';
 import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
-import { isObjectEmpty } from '@/utils/base/isObjectEmpty';
+import { utils } from '@/utils/base';
 import { WeatherIconDictionary } from '@/utils/dictionaries/WeatherIconDictionary';
 import { getTimeFromUnixTimestamp } from '@/utils/dates/dates';
 
 export const openWeatherCurrentToWeather = (
   currentWeather: OpenWeatherCurrentDTO,
 ): Nullable<CurrentWeather> => {
-  if (isObjectEmpty(currentWeather)) return null;
+  if (utils.isObjectEmpty(currentWeather)) return null;
 
   const { weather, wind, main, visibility, name, sys } = currentWeather;
 

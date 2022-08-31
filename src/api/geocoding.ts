@@ -17,7 +17,7 @@ interface OpenStreetCityResponse {
 }
 
 const geocoding = {
-  getCoordinatesByIP: async (): Promise<Nullable<Coordinates>> => {
+  fetchCoordinatesByIP: async (): Promise<Nullable<Coordinates>> => {
     const endpoint = `${process.env.VUE_APP_IPAPI_URL}/json`;
     let response: IPAPICoordinatesResponse;
     let result: Nullable<Coordinates>;
