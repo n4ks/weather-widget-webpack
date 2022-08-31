@@ -11,6 +11,7 @@
     <v-select
       label="address"
       :options="cities"
+      placeholder="Enter city name"
       @search="searchCity"
     />
   </div>
@@ -57,18 +58,13 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-// TODO: унифицировать стили/подумать что нужно перенести в weather-widget__config-menu
 .config-menu {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 10px 15px;
-  background-color: $color-default-background;
-  border-radius: 10px;
 
   &__close-btn {
     margin-bottom: 20px;

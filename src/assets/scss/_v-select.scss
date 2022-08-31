@@ -9,4 +9,8 @@
   &__clear {
     fill: $color-brand;
   }
+
+  &__search::placeholder {
+    color: $color-disabled;
+  }
 }

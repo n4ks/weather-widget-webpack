@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="weather-widget text">
+  <div class="weather-widget text card">
     <div class="weather-widget__place-row row row--spaced">
       <weather-widget-place
         class="weather-widget__place text text--md text--bold"
@@ -32,7 +32,7 @@
     </div>
     <weather-widget-config-menu
       v-if="isConfigMenuOpen"
-      class="weather-widget__config-menu"
+      class="weather-widget__config-menu card"
       @close-config-menu="toggleConfigMenu()"
     />
   </div>
@@ -116,15 +116,11 @@ export default Vue.extend({
 
 .weather-widget {
   position: relative;
-  box-sizing: border-box;
   width: 260px;
   height: 310px;
-  padding: 10px 15px;
   margin: auto; // TODO: remove after
   font-family: $primary-font;
   color: $color-default;
-  background-color: $color-default-background;
-  border-radius: 10px;
 
   &__place {
     max-width: 85%;

@@ -1,4 +1,6 @@
-﻿@use 'global.scss';
+﻿// FIXME: импорты через @use не видят scss переменные
+@use 'global.scss';
 @use 'row.scss';
 @use 'text.scss';
+@import 'card.scss';
 @import 'v-select.scss';
