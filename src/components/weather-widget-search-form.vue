@@ -8,7 +8,7 @@
       class="search-form__search"
       label="address"
       :options="cities"
-      placeholder="Enter city name"
+      placeholder="Enter city name (min. 3 symbols)"
       @search="searchCity"
     />
     <base-button

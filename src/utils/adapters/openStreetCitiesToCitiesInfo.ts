@@ -8,9 +8,10 @@ export const openStreetCitiesToCitiesInfo = (
   if (!openStreetCities?.length) return null;
 
   const cities = openStreetCities.map((city) => {
-    const { lat, lon, display_name } = city;
+    const { place_id, lat, lon, display_name } = city;
 
     return {
+      id: place_id,
       coordinates: {
         lat: parseFloat(lat),
         lon: parseFloat(lon),

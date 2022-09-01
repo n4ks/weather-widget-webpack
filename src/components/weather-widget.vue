@@ -81,7 +81,7 @@ export default Vue.extend({
     await this.initCurrentWeather();
   },
   methods: {
-    async initCurrentWeather() {
+    async initCurrentWeather(): Promise<void> {
       const coords =
         utils.ls.getFromStorage(this.$options.COORDS_KEY as string) ??
         (await api.geocoding.fetchCoordinatesByIP());

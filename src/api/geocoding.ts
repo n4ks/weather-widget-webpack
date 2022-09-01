@@ -41,7 +41,7 @@ const geocoding = {
     return result;
   },
   fetchCitiesByName: async (city: string): Promise<Nullable<CityInfo[]>> => {
-    const endpoint = `https://nominatim.openstreetmap.org/search?city=${city}&format=json&addressdetails=1&accept-language=en`;
+    const endpoint = `https://nominatim.openstreetmap.org/search?city=${city}&format=json`;
     let response: OpenStreetCityResponse;
     let result: Nullable<CityInfo[]>;
 
