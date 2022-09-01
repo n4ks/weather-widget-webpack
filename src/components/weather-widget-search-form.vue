@@ -5,12 +5,16 @@
   >
     <v-select
       v-model="selectedCity"
-      class="search-form__search"
       label="address"
+      class="search-form__search"
       :options="cities"
       placeholder="Enter city name (min. 3 symbols)"
       @search="searchCity"
-    />
+    >
+      <template #selected-option="{ address }">
+        {{ formatSelectedCityLabel(address) }}
+      </template>
+    </v-select>
     <base-button
       :disabled="isSelectDisabled"
       class="search-form__button text text--md"
@@ -64,6 +68,9 @@ export default Vue.extend({
     onSubmit(): void {
       console.log('test');
       this.$emit('select-city', this.selectedCity?.coordinates);
+    },
+    formatSelectedCityLabel(label: string) {
+      return utils.truncateText(label);
     },
   },
 });
