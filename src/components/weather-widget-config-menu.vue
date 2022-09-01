@@ -8,7 +8,10 @@
       color="brand"
       @click="closeConfigMenu"
     />
-    <weather-widget-search-form class="config-menu__search-form" />
+    <weather-widget-search-form
+      class="config-menu__search-form"
+      @select-city="onSelectCity"
+    />
   </div>
 </template>
 
@@ -16,6 +19,7 @@
 import Vue from 'vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
 import WeatherWidgetSearchForm from '@/components/weather-widget-search-form.vue';
+import { Coordinates } from '@/interfaces/weather-widget/Coordinates';
 
 export default Vue.extend({
   name: 'WeatherWidgetConfigMenu',
@@ -37,6 +41,9 @@ export default Vue.extend({
       if (evt.code !== 'Escape') return;
 
       this.closeConfigMenu();
+    },
+    onSelectCity(coords: Coordinates) {
+      this.$emit('select-city', coords);
     },
   },
 });

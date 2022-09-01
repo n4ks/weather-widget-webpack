@@ -1,6 +1,6 @@
 ﻿<template>
   <button
-    type="button"
+    :type="type"
     class="base-button"
     :class="classes"
     :disabled="disabled"

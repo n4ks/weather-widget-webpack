@@ -1,5 +1,8 @@
 ﻿<template>
-  <div class="weather-widget text card">
+  <div
+    v-if="weather"
+    class="weather-widget text card"
+  >
     <div class="weather-widget__place-row row row--spaced">
       <weather-widget-place
         class="weather-widget__place text text--md text--bold"
@@ -11,7 +14,7 @@
         icon-name="config"
         size="sm"
         color="brand"
-        @click="toggleConfigMenu()"
+        @click="toggleConfigMenu"
       />
     </div>
     <weather-widget-temperature
@@ -33,7 +36,8 @@
     <weather-widget-config-menu
       v-if="isConfigMenuOpen"
       class="weather-widget__config-menu card"
-      @close-config-menu="toggleConfigMenu()"
+      @select-city="onCityChange"
+      @close-config-menu="toggleConfigMenu"
     />
   </div>
 </template>
@@ -46,9 +50,16 @@ import WeatherWidgetTemperature from '@/components/weather-widget-temperature.vu
 import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-info.vue';
 import WeatherWidgetConfigMenu from '@/components/weather-widget-config-menu.vue';
 import { api } from '@/api';
+import { utils } from '@/utils/base';
 import { Nullable } from '@/interfaces/base/Nullable';
-// import { Coordinates } from '@/interfaces/weather-widget/Coordinates';
+import { Coordinates } from '@/interfaces/weather-widget/Coordinates';
 import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
+
+declare module 'vue/types/options' {
+  interface ComponentOptions<V extends Vue> {
+    COORDS_KEY?: string;
+  }
+}
 
 export default Vue.extend({
   components: {
@@ -58,53 +69,33 @@ export default Vue.extend({
     WeatherWidgetAdditionalInfo,
     WeatherWidgetConfigMenu,
   },
+  COORDS_KEY: 'city-coords',
   data() {
     return {
       isConfigMenuOpen: false,
-      // selectedCityCoordinates: null as Nullable<Coordinates>,
-      weather: {
-        place: {
-          city: '',
-          countryCode: '',
-        },
-        temperature: {
-          value: '',
-          icon: '',
-        },
-        description: '',
-        additionalInfo: [
-          {
-            title: '',
-            value: '',
-            icon: '',
-          },
-        ],
-      },
+      selectedCityCoords: null as Nullable<Coordinates>,
+      weather: null as Nullable<CurrentWeather>,
     };
   },
   async created() {
-    await this.getWeather();
+    await this.initCurrentWeather();
   },
   methods: {
-    async fetchCurrentWeather(
-      lat: number,
-      lon: number,
-    ): Promise<Nullable<CurrentWeather>> {
-      return await api.weather.fetchCurrentWeather(lat, lon);
+    async initCurrentWeather() {
+      const coords =
+        utils.ls.getFromStorage(this.$options.COORDS_KEY as string) ??
+        (await api.geocoding.fetchCoordinatesByIP());
+
+      if (!coords) return;
+
+      this.weather = await api.weather.fetchCurrentWeatherByCoords(coords);
     },
-    async getWeather(): Promise<void> {
-      const location = await api.geocoding.fetchCoordinatesByIP();
+    async onCityChange(coords: Coordinates) {
+      utils.ls.addToStorage(this.$options.COORDS_KEY as string, coords);
 
-      if (!location) return;
+      this.weather = await api.weather.fetchCurrentWeatherByCoords(coords);
 
-      const currentWeather = await this.fetchCurrentWeather(
-        location.lat,
-        location.lon,
-      );
-
-      if (!currentWeather) return;
-
-      this.weather = currentWeather;
+      this.toggleConfigMenu();
     },
     toggleConfigMenu(): void {
       this.isConfigMenuOpen = !this.isConfigMenuOpen;
