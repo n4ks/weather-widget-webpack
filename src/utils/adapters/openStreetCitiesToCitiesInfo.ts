@@ -8,15 +8,14 @@ export const openStreetCitiesToCitiesInfo = (
   if (!openStreetCities?.length) return null;
 
   const cities = openStreetCities.map((city) => {
-    const { lat, lon, address } = city;
-    const { town, hamlet, village, country } = address;
+    const { lat, lon, display_name } = city;
 
     return {
       coordinates: {
         lat: parseFloat(lat),
         lon: parseFloat(lon),
       },
-      address: `${town ?? hamlet ?? village}, ${country}`,
+      address: display_name,
     };
   });
 

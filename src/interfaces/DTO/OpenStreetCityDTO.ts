@@ -1,11 +1,5 @@
 ﻿export interface OpenStreetCityDTO {
-  address: {
-    country: string;
-    town?: string;
-    city?: string;
-    village?: string;
-    hamlet?: string;
-  };
+  display_name: string;
   lat: string;
   lon: string;
 }
