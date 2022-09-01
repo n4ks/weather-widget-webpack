@@ -3,6 +3,8 @@
     type="button"
     class="base-button"
     :class="classes"
+    :disabled="disabled"
+    @click="onClick()"
   >
     {{ title }}
   </button>
@@ -36,6 +38,10 @@ export default Vue.extend({
         return ['wide'].includes(value);
       },
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
@@ -43,6 +49,11 @@ export default Vue.extend({
         `base-button--color-${this.color}`,
         `base-button--size-${this.size}`,
       ];
+    },
+  },
+  methods: {
+    onClick(): void {
+      this.$emit('click');
     },
   },
 });
@@ -54,6 +65,11 @@ export default Vue.extend({
   padding: 10px 15px;
   color: $color-default-2;
   border-radius: 5px;
+
+  &:disabled {
+    @include disabled-button;
+    background-color: $color-disabled;
+  }
 }
 
 .base-button--size {

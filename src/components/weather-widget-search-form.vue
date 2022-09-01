@@ -9,9 +9,10 @@
       @search="searchCity"
     />
     <base-button
-      class="search-form__button"
+      :disabled="isSelectDisabled"
+      class="search-form__button text text--md"
       type="submit"
-      title="search"
+      title="Select city"
     />
   </form>
 </template>
@@ -36,6 +37,11 @@ export default Vue.extend({
       selectedCity: null as Nullable<CityInfo>,
       cities: [] as CityInfo[],
     };
+  },
+  computed: {
+    isSelectDisabled(): boolean {
+      return !this.selectedCity;
+    },
   },
   methods: {
     fetchCitiesByName: utils.debounce(api.geocoding.fetchCitiesByName),

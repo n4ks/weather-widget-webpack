@@ -3,6 +3,7 @@
     type="button"
     class="base-icon-button"
     :class="classes"
+    :disabled="disabled"
     @click="onClick()"
   >
     <span class="visually-hidden">{{ iconName }} button</span>
@@ -45,6 +46,10 @@ export default Vue.extend({
         return ['brand'].includes(value);
       },
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes() {
@@ -68,6 +73,11 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:disabled {
+    @include disabled-button;
+    color: $color-disabled;
+  }
 }
 
 .base-icon-button--size {
