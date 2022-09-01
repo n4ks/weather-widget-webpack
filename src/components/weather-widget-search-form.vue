@@ -2,6 +2,7 @@
   <form class="search-form">
     <v-select
       v-model="selectedCity"
+      class="search-form__search"
       label="address"
       :options="cities"
       placeholder="Enter city name"
@@ -53,3 +54,11 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+.search-form {
+  &__search {
+    margin-bottom: 15px;
+  }
+}
+</style>

@@ -1,7 +1,7 @@
 ﻿<template>
   <button
     type="button"
-    class="base-icon-btn"
+    class="base-icon-button"
     :class="classes"
     @click="onClick()"
   >
@@ -49,8 +49,8 @@ export default Vue.extend({
   computed: {
     classes() {
       return [
-        `base-icon-btn--size-${this.size}`,
-        `base-icon-btn--color-${this.color}`,
+        `base-icon-button--size-${this.size}`,
+        `base-icon-button--color-${this.color}`,
       ];
     },
   },
@@ -63,21 +63,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.base-icon-btn {
+.base-icon-button {
   @include reset-button;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.base-icon-btn--size {
+.base-icon-button--size {
   &-sm {
     width: 24px;
     height: 24px;
   }
 }
 
-.base-icon-btn--color {
+.base-icon-button--color {
   &-brand {
     color: $color-brand;
 

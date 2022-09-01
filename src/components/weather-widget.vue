@@ -6,7 +6,7 @@
         :place="weather.place"
       />
       <base-icon-button
-        class="weather-widget__config-btn"
+        class="weather-widget__config-button"
         icon-folder="base"
         icon-name="config"
         size="sm"
@@ -128,7 +128,7 @@ export default Vue.extend({
     max-width: 85%;
   }
 
-  &__config-btn {
+  &__config-button {
     flex-shrink: 0;
   }
 

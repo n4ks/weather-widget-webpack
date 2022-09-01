@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="config-menu">
     <base-icon-button
-      class="config-menu__close-btn"
+      class="config-menu__close-button"
       icon-folder="base"
       icon-name="close"
       size="sm"
@@ -51,7 +51,7 @@ export default Vue.extend({
   width: 100%;
   height: 100%;
 
-  &__close-btn {
+  &__close-button {
     margin-bottom: 20px;
     margin-left: auto;
   }
