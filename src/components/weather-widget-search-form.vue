@@ -1,7 +1,7 @@
 ﻿<template>
   <form
     class="search-form"
-    @submit.prevent="onSubmit()"
+    @submit.prevent="onSubmit"
   >
     <v-select
       v-model="selectedCity"
@@ -52,15 +52,14 @@ export default Vue.extend({
       search: string,
       toggleLoading: (loading: boolean) => void,
     ): Promise<void> {
-      const MIN_CHARS = 3;
-      const isSearchEmpty = !!search.trim();
+      const isSearchNotEmpty = !!search.trim();
+      const searchHasMinLength = search.length >= 3;
 
-      if (isSearchEmpty && search.length < MIN_CHARS) return;
-      // FIXME: fix empty string search bug
-      console.log(search);
-      toggleLoading(true);
-      this.cities = (await this.fetchCitiesByName(search)) ?? [];
-      toggleLoading(false);
+      if (isSearchNotEmpty && searchHasMinLength) {
+        toggleLoading(true);
+        this.cities = (await this.fetchCitiesByName(search)) ?? [];
+        toggleLoading(false);
+      }
     },
     onSubmit(): void {
       console.log('test');

@@ -36,7 +36,7 @@
     <weather-widget-config-menu
       v-if="isConfigMenuOpen"
       class="weather-widget__config-menu card"
-      @select-city="onCityChange"
+      @select-city="onSelectCity"
       @close-config-menu="toggleConfigMenu"
     />
   </div>
@@ -90,11 +90,9 @@ export default Vue.extend({
 
       this.weather = await api.weather.fetchCurrentWeatherByCoords(coords);
     },
-    async onCityChange(coords: Coordinates) {
-      utils.ls.addToStorage(this.$options.COORDS_KEY as string, coords);
-
+    async onSelectCity(coords: Coordinates) {
       this.weather = await api.weather.fetchCurrentWeatherByCoords(coords);
-
+      utils.ls.addToStorage(this.$options.COORDS_KEY as string, coords);
       this.toggleConfigMenu();
     },
     toggleConfigMenu(): void {
