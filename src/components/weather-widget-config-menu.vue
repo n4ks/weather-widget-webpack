@@ -6,9 +6,10 @@
       icon-name="close"
       size="sm"
       color="brand"
-      @click="onCloseConfigMenu"
+      @click="closeConfigMenu"
     />
     <v-select
+      v-model="selectedCity"
       label="address"
       :options="cities"
       placeholder="Enter city name"
@@ -22,8 +23,9 @@ import Vue from 'vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
 import vSelect from 'vue-select';
 import { api } from '@/api';
-import { CityInfo } from '@/interfaces/weather-widget/CityInfo';
 import { utils } from '@/utils/base';
+import { Nullable } from '@/interfaces/base/Nullable';
+import { CityInfo } from '@/interfaces/weather-widget/CityInfo';
 
 export default Vue.extend({
   name: 'WeatherWidgetConfigMenu',
@@ -33,8 +35,15 @@ export default Vue.extend({
   },
   data() {
     return {
+      selectedCity: null as Nullable<CityInfo>,
       cities: [] as CityInfo[],
     };
+  },
+  mounted() {
+    window.addEventListener('keydown', this.onPressEsc);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.onPressEsc);
   },
   methods: {
     fetchCitiesByName: utils.debounce(api.geocoding.fetchCitiesByName),
@@ -50,8 +59,13 @@ export default Vue.extend({
       this.cities = (await this.fetchCitiesByName(search)) ?? [];
       toggleLoading(false);
     },
-    onCloseConfigMenu(): void {
+    closeConfigMenu(): void {
       this.$emit('close-config-menu');
+    },
+    onPressEsc(evt: KeyboardEvent): void {
+      if (evt.code !== 'Escape') return;
+
+      this.closeConfigMenu();
     },
   },
 });
