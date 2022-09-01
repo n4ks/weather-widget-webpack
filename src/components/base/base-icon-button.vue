@@ -64,13 +64,10 @@ export default Vue.extend({
 
 <style lang="scss">
 .base-icon-btn {
-  box-sizing: border-box;
+  @include reset-button;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  background-color: transparent;
-  border: none;
 }
 
 .base-icon-btn--size {

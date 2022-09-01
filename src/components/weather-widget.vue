@@ -47,6 +47,7 @@ import WeatherWidgetAdditionalInfo from '@/components/weather-widget-additional-
 import WeatherWidgetConfigMenu from '@/components/weather-widget-config-menu.vue';
 import { api } from '@/api';
 import { Nullable } from '@/interfaces/base/Nullable';
+// import { Coordinates } from '@/interfaces/weather-widget/Coordinates';
 import { CurrentWeather } from '@/interfaces/weather-widget/CurrentWeather';
 
 export default Vue.extend({
@@ -60,6 +61,7 @@ export default Vue.extend({
   data() {
     return {
       isConfigMenuOpen: false,
+      // selectedCityCoordinates: null as Nullable<Coordinates>,
       weather: {
         place: {
           city: '',

@@ -1,0 +1,8 @@
+﻿@mixin reset-button {
+  box-sizing: border-box;
+  padding: 0;
+  font-family: inherit;
+  color: $color-default;
+  background-color: transparent;
+  border: none;
+}

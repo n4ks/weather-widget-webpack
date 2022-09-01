@@ -8,36 +8,20 @@
       color="brand"
       @click="closeConfigMenu"
     />
-    <v-select
-      v-model="selectedCity"
-      label="address"
-      :options="cities"
-      placeholder="Enter city name"
-      @search="searchCity"
-    />
+    <weather-widget-search-form class="config-menu__search-form" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import BaseIconButton from '@/components/base/base-icon-button.vue';
-import vSelect from 'vue-select';
-import { api } from '@/api';
-import { utils } from '@/utils/base';
-import { Nullable } from '@/interfaces/base/Nullable';
-import { CityInfo } from '@/interfaces/weather-widget/CityInfo';
+import WeatherWidgetSearchForm from '@/components/weather-widget-search-form.vue';
 
 export default Vue.extend({
   name: 'WeatherWidgetConfigMenu',
   components: {
     BaseIconButton,
-    vSelect,
-  },
-  data() {
-    return {
-      selectedCity: null as Nullable<CityInfo>,
-      cities: [] as CityInfo[],
-    };
+    WeatherWidgetSearchForm,
   },
   mounted() {
     window.addEventListener('keydown', this.onPressEsc);
@@ -46,19 +30,6 @@ export default Vue.extend({
     window.removeEventListener('keydown', this.onPressEsc);
   },
   methods: {
-    fetchCitiesByName: utils.debounce(api.geocoding.fetchCitiesByName),
-    async searchCity(
-      search: string,
-      toggleLoading: (loading: boolean) => void,
-    ): Promise<void> {
-      const isSearchNotEmpty = !search.trim();
-
-      if (isSearchNotEmpty) return;
-
-      toggleLoading(true);
-      this.cities = (await this.fetchCitiesByName(search)) ?? [];
-      toggleLoading(false);
-    },
     closeConfigMenu(): void {
       this.$emit('close-config-menu');
     },
