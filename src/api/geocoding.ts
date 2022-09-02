@@ -28,13 +28,12 @@ const geocoding = {
       )) as IPAPICoordinatesResponse;
 
       if (response.error) {
-        // TODO: глянуть в доке как апишка возвращает ошибку с этим ключом и пробросить
+        // FIXME: error message IPAPI doc
         throw 'error';
       }
 
       result = ipapiLocationToLocation(response.data);
     } catch (e) {
-      // TODO throw
       console.log(e);
     }
 
@@ -49,10 +48,8 @@ const geocoding = {
       response = (await axiosInstance.get(endpoint)) as OpenStreetCityResponse;
       result = openStreetCitiesToCitiesInfo(response.data);
     } catch (e) {
-      // TODO: throw
       console.log(e);
     }
-    console.log(result);
     return result;
   },
 };

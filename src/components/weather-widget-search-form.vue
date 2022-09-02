@@ -66,7 +66,6 @@ export default Vue.extend({
       }
     },
     onSubmit(): void {
-      console.log('test');
       this.$emit('select-city', this.selectedCity?.coordinates);
     },
     formatSelectedCityLabel(label: string) {

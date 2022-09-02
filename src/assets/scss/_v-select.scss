@@ -2,15 +2,15 @@
 
 .vs {
   &__dropdown-toggle {
-    border-color: $color-brand;
+    border-color: $color-brand !important;
   }
 
   &__open-indicator,
   &__clear {
-    fill: $color-brand;
+    fill: $color-brand !important;
   }
 
   &__search::placeholder {
-    color: $color-disabled;
+    color: $color-disabled !important;
   }
 }

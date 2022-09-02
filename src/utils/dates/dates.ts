@@ -6,9 +6,9 @@ const getTimeFromUnixTimestamp = (timestamp: number): string => {
   const date = new Date(timestamp * 1000);
 
   const time = [date.getHours(), date.getMinutes(), date.getSeconds()];
-  const formattedTime = time.map(addLeadingZeroToTime);
+  const formattedTime = time.map(addLeadingZeroToTime).join(':');
 
-  return formattedTime.join(':');
+  return formattedTime;
 };
 
 export { getTimeFromUnixTimestamp };

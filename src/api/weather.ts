@@ -24,7 +24,6 @@ const weather = {
       )) as OpenWeatherCurrentResponse;
       result = openWeatherCurrentToWeather(response.data);
     } catch (e) {
-      // TODO: throw
       console.log(e);
     }
 
