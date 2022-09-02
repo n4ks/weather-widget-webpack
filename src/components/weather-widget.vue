@@ -91,10 +91,10 @@ export default Vue.extend({
       this.weather = await api.weather.fetchCurrentWeatherByCoords(coords);
     },
     async onSelectCity(coords: Coordinates) {
+      if (utils.isObjectEmpty(coords)) return;
+
       this.weather = await api.weather.fetchCurrentWeatherByCoords(coords);
-
       utils.ls.addToStorage(this.$options.COORDS_KEY as string, coords);
-
       this.toggleConfigMenu();
     },
     toggleConfigMenu(): void {
@@ -111,7 +111,6 @@ export default Vue.extend({
   position: relative;
   width: 260px;
   height: 310px;
-  margin: auto; // TODO: remove after
   font-family: $primary-font;
   color: $color-default;
 

@@ -1,6 +1,7 @@
-﻿@import 'vue-select/dist/vue-select.css';
+﻿// FIXME: переменные из :root не работают в сборке веб-компонента, создал ишью https://github.com/sagalbot/vue-select/issues/1680
+@import 'vue-select/dist/vue-select.css';
 
-.vs {
+.search-form__search .vs {
   &__dropdown-toggle {
     border-color: $color-brand !important;
   }

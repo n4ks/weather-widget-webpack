@@ -26,8 +26,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import vSelect from 'vue-select';
 import BaseButton from '@/components/base/base-button.vue';
+import vSelect from 'vue-select';
 import { utils } from '@/utils/base';
 import { api } from '@/api';
 import { Nullable } from '@/interfaces/base/Nullable';
@@ -57,9 +57,9 @@ export default Vue.extend({
       toggleLoading: (loading: boolean) => void,
     ): Promise<void> {
       const isSearchNotEmpty = !!search.trim();
-      const searchHasMinLength = search.length >= 3;
+      const isSearchHasMinLength = search.length >= 3;
 
-      if (isSearchNotEmpty && searchHasMinLength) {
+      if (isSearchNotEmpty && isSearchHasMinLength) {
         toggleLoading(true);
         this.cities = (await this.fetchCitiesByName(search)) ?? [];
         toggleLoading(false);
@@ -68,7 +68,7 @@ export default Vue.extend({
     onSubmit(): void {
       this.$emit('select-city', this.selectedCity?.coordinates);
     },
-    formatSelectedCityLabel(label: string) {
+    formatSelectedCityLabel(label: string): string {
       return utils.truncateText(label);
     },
   },
